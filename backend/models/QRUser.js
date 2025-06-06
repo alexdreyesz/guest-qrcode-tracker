@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const qrUserShcema = new mongoose.Schema({
+const qrUserSchema = new mongoose.Schema({
     id: { type: Number, required: true, unique: true },
     name: { type: String, required: true },
     country: { type: String, required: true },
@@ -9,4 +9,4 @@ const qrUserShcema = new mongoose.Schema({
     qrid: { type: String, required: true, unique: true }  
 });
 
-module.export = mongoose.model('qrUser', qrUserSchema);
+module.exports = mongoose.model('QRUser', qrUserSchema);
