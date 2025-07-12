@@ -6,7 +6,10 @@ require('dotenv').config();
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://hondurasoft.xyz'],
+    credentials: true
+}));
 app.use(express.json());
 
 // Routes
@@ -16,8 +19,12 @@ app.use('/api/users', require('./routes/userRoutes'));
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
 console.log('MongoDB connected');
-app.listen(process.env.PORT || 5000, () =>
-    console.log(`Server running on port ${process.env.PORT || 5000}`)
-);
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 })
 .catch(err => console.error(err));
