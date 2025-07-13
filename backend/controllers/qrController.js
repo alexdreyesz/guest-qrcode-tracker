@@ -41,7 +41,7 @@ const getUserByQRID = async (req, res) => {
         const { qrid } = req.params;
         const user = await QRUser.findOne({ qrid });
 
-        if (!user) {
+        if(!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
@@ -51,4 +51,31 @@ const getUserByQRID = async (req, res) => {
     }
 };
 
-module.exports = { createUser, getAllUsers, getUserByQRID };
+const getUserByName = async (req, res) => {
+    try {
+        const { name } = req.query;
+
+        if (!name || name.trim() === "") {
+            return res.status(400).json({ error: 'Missing or empty name query' });
+        }
+
+        const terms = name.trim().toLowerCase().split(/\s+/);
+
+        const users = await QRUser.find({
+            $and: terms.map(term => ({
+                name: new RegExp(term, "i")
+            }))
+        });
+
+        if (users.length === 0) {
+            return res.status(404).json({ error: 'No users found' });
+        }
+
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch users' });
+    }
+};
+
+module.exports = { createUser, getAllUsers, getUserByQRID, getUserByName };
