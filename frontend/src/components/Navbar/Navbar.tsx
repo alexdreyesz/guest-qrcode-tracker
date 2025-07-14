@@ -5,21 +5,23 @@ import Logo from '../../assets/icons/Logo.png';
 
 export default function Navbar() {
     return (
-        <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+        <nav className="w-screen bg-white backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
             {/* Navbar Container */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <div className="flex items-center justify-center">
                         {/* Logo Image */}
-                        <div className="flex-shrink-0 relative right-3 top-[2px]">
+                        <div className="flex-shrink-0 relative right-1 top-[2px]">
                             <img src={Logo} alt="QtrackeR Logo" className="h-12 w-12" />
                         </div>
                         
                         {/* Logo Text */}
-                        <div className="flex-shrink-0">
-                            <h1 className="text-2xl font-bold text-indigo-600">QtrackeR</h1>
-                        </div>
+                        <Link to={PagesURL.Landing} className="ml-3 text-2xl font-bold text-indigo-600">
+                            <div className="relative right-3 flex-shrink-0">
+                                <h1 className="text-2xl font-bold text-indigo-600">QtrackeR</h1>
+                            </div>
+                        </Link>
                     </div>
                     
                     {/* Navigation Links */}

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
+
 interface UserProp {
     id: number,
     name: string,
@@ -13,6 +16,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function FindUserQr() {
     const [userList, setUserList] = useState<UserProp[]>([]);
+    const [userData, setUserData] = useState<UserProp | null>(null);
     
     async function getUserData(name: string) {
         try {
@@ -39,33 +43,56 @@ export default function FindUserQr() {
     }
 
     useEffect(() => {
-        
-    }, [userList]);
+        console.log(userData)
+    }, [userData]);
     
     return (
-        <div className="flex flex-col justify-center items-center h-screen  bg-gradient-to-br from-blue-50 to-indigo-100">
-            
-            <div className="w-[50%] flex justify-center gap-4 padding-4 mb-4">
-                <input 
-                    type="text" 
-                    placeholder="Search user..." 
-                    className="border bg-white border-gray-300 rounded-lg p-2" 
-                    onChange={(e) => getUserData(e.target.value)}
-                />
+        <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+            {/* Navbar */}
+            <Navbar />
+
+            {/* Main Content */}
+            <>
+                <div className="w-[50%] flex justify-center gap-4 padding-4 mb-4">
+                    <input 
+                        type="text" 
+                        placeholder="Search user..." 
+                        className="border bg-white border-gray-300 rounded-lg p-2" 
+                        onChange={(e) => getUserData(e.target.value)}
+                    />
+                    
+                    <select 
+                        className="w-[300px] border bg-white border-gray-300 rounded-lg p-2"
+                        onChange={(e) => {
+                            const selectedUser = userList.find(user => user.name === e.target.value);
+                            
+                            if (selectedUser) {
+                                setUserData(selectedUser);
+                            }
+                        }}
+                    >
+                        <option value="">Select a user...</option>
+                        {userList.map((user) => {
+                            return (
+                                <option 
+                                    key={`${user.id}`}
+                                    value={user.name}
+                                >
+                                    {user.name}
+                                </option>
+                            );
+                        })}                   
+                    </select>
+                </div>
                 
-                <select className="w-[300px] border bg-white border-gray-300 rounded-lg p-2">
-                    {userList.map((user) => {
-                        return (
-                            <option key={`${user.id}`} value={user.name} className="">{user.name}</option>
-                        );
-                    })}                   
-                </select>
-            </div>
-            
-            <div className="w-[50%] h-[80%] bg-white rounded-2xl">
+                <div className="w-[50%] h-[80%] bg-white rounded-2xl">
+                        
 
-
-            </div>
+                </div>
+            </>
+                    
+            {/* Footer */}
+            <Footer />
         </div>
     );
 }

@@ -1,4 +1,3 @@
-import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Landing, UserProfile, FindUserQr} from './pages'
 import PagesUrl from '../router/routes'

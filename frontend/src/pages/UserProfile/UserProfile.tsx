@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
+
 interface UserProp {
     id: number,
     name: string,
@@ -43,18 +46,27 @@ export default function UserProfile() {
     }, [userList]);
 
     useEffect(() => {
-        getUserData();
+        getUserData("Nicole");
     }, []);
     
     return (
-        <div className="relative flex flex-col justify-center items-center h-screen bg-gradient-to-br from-blue-50 to-indigo-100">    
-            {/* Profile Banner */}
-            <div className="absolute h-[40%] w-[100%] inset-0 bg-gradient-to-br from-red-400 to-indigo-500"></div>
+        <div className="flex flex-col items-center w-screen bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">    
+            {/* Navbar */}
+            <Navbar/>
             
-            <div className="w-[50%] h-[80%] bg-white rounded-2xl z-1">
-
-
+            {/* Main Content */}
+            <div className="relative flex flex-col items-center w-full h-screen overflow-hidden">
+                {/* Profile Banner */}
+                <div className="absolute h-[40%] w-[100%] inset-0 bg-blue-500"></div>
+                
+                <div className="w-[50%] h-[80%] bg-white rounded-2xl z-1">
+                    
+                            
+                </div>
             </div>
+
+            {/* Footer */}
+            <Footer />
         </div>
     );
 }
