@@ -9,4 +9,4 @@ const qrUserSchema = new mongoose.Schema({
     qrid: { type: String, required: true, unique: true }  
 });
 
-module.exports = mongoose.model('QRUser', qrUserSchema);
+module.exports = mongoose.model('users', qrUserSchema);

@@ -11,7 +11,7 @@ interface UserProp {
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export default function UserProfile() {
+export default function FindUserQr() {
     const [userList, setUserList] = useState<UserProp[]>([]);
     
     async function getUserData(name: string) {
@@ -41,17 +41,28 @@ export default function UserProfile() {
     useEffect(() => {
         
     }, [userList]);
-
-    useEffect(() => {
-        getUserData();
-    }, []);
     
     return (
-        <div className="relative flex flex-col justify-center items-center h-screen bg-gradient-to-br from-blue-50 to-indigo-100">    
-            {/* Profile Banner */}
-            <div className="absolute h-[40%] w-[100%] inset-0 bg-gradient-to-br from-red-400 to-indigo-500"></div>
+        <div className="flex flex-col justify-center items-center h-screen  bg-gradient-to-br from-blue-50 to-indigo-100">
             
-            <div className="w-[50%] h-[80%] bg-white rounded-2xl z-1">
+            <div className="w-[50%] flex justify-center gap-4 padding-4 mb-4">
+                <input 
+                    type="text" 
+                    placeholder="Search user..." 
+                    className="border bg-white border-gray-300 rounded-lg p-2" 
+                    onChange={(e) => getUserData(e.target.value)}
+                />
+                
+                <select className="w-[300px] border bg-white border-gray-300 rounded-lg p-2">
+                    {userList.map((user) => {
+                        return (
+                            <option key={`${user.id}`} value={user.name} className="">{user.name}</option>
+                        );
+                    })}                   
+                </select>
+            </div>
+            
+            <div className="w-[50%] h-[80%] bg-white rounded-2xl">
 
 
             </div>

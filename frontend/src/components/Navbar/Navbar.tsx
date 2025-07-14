@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import PagesURL from '../../../router/routes';
+
 import Logo from '../../assets/icons/Logo.png';
 
 export default function Navbar() {
@@ -9,7 +12,7 @@ export default function Navbar() {
                     {/* Logo */}
                     <div className="flex items-center justify-center">
                         {/* Logo Image */}
-                        <div className="flex-shrink-0 relative right-3">
+                        <div className="flex-shrink-0 relative right-3 top-[2px]">
                             <img src={Logo} alt="QtrackeR Logo" className="h-12 w-12" />
                         </div>
                         
@@ -19,15 +22,22 @@ export default function Navbar() {
                         </div>
                     </div>
                     
+                    {/* Navigation Links */}
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
-                            <a href="#features" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Features</a>
-                            <a href="#how-it-works" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">How it Works</a>
-                            <a href="#pricing" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Pricing</a>
-                            <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">Get Started</button>
+                            <a href="" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Features</a>
+                            <a href="" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">How it Works</a>
+                            <a href="" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Pricing</a>
+                            <Link to={PagesURL.UserProfile}>
+                                <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">Sign Up</button>
+                            </Link>
+                            <Link to={PagesURL.FindUserQr}>
+                                <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">Log In</button>
+                            </Link>
                         </div>
                     </div>
                     
+                    {/* Mobile Menu Button */}
                     <div className="md:hidden">
                         <button className="text-gray-700 hover:text-indigo-600">
                             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
