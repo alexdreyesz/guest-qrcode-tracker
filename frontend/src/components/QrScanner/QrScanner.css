@@ -1,0 +1,77 @@
+/* Adjust the container styling */
+#qr-reader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #4f46e5;
+    border-radius: 1rem;
+    padding: 1rem;
+    gap: 5px;
+    background-color: #f9f9f9;
+    max-width: 500px;
+    margin: auto;
+}
+
+#qr-reader__dashboard_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* QR Scanner Button Style */
+#qr-reader__dashboard_section_csr button {
+    background-color: #4f46e5;
+    color: white;
+    border-radius: 0.5rem;
+    padding: 8px 12px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+#qr-reader__dashboard_section_csr button:hover {
+    background-color: #4338ca;
+}
+
+/* Scan Box Area */
+#qr-reader__scan_region {
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+/* Scan Box Video  */
+#qr-reader__scan_region video {
+  border: 2px solid;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    #qr-reader__scan_region {
+        width: 100%;
+        height: 100%;
+    }
+    
+    #qr-reader__scan_region video {
+        width: 100%;
+        height: 100%;
+    }
+
+    #qr-reader__dashboard_section {
+        position: relative;
+        bottom: 40px;
+    }
+
+    #html5-qrcode-button-camera-stop {
+        position: relative;
+        top: 45px;
+    }
+}
