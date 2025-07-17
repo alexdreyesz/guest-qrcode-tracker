@@ -1,14 +1,14 @@
 /* Adjust the container styling */
 #qr-reader {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid #4f46e5;
-    border-radius: 1rem;
+    border: 0px !important;
     padding: 1rem;
     gap: 5px;
-    background-color: #f9f9f9;
+    background-color: transparent;
     max-width: 500px;
     margin: auto;
 }
@@ -55,6 +55,13 @@
 }
 
 @media (max-width: 768px) {
+    #qr-reader {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
     #qr-reader__scan_region {
         width: 100%;
         height: 100%;

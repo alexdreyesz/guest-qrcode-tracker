@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import Navbar from "../../components/Navbar/Navbar";
@@ -19,11 +19,11 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 export default function UserProfile() {
     const [userData, setUserData] = useState<UserProp | null>(null);
     const location = useLocation();
-    const { decodedText } = location.state || {};
+    const { qrid } = location.state || {};
     
     async function getUserQRID() {
         try {
-            const response = await fetch(`${baseUrl}/by-qrid/${decodedText}`);
+            const response = await fetch(`${baseUrl}/by-qrid/${qrid}`);
 
             if (!response.ok) {
                 if (response.status === 401) {
@@ -77,16 +77,16 @@ export default function UserProfile() {
                         </div>
                         
                         {/* User Name */}
-                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-5 mb-5">
                             {userData?.name || "Loading..."}
                         </h1>
                         
                         {/* QR ID Badge */}
-                        <div className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                        <div className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
                             <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M3 4a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2V5h1v1H5zM3 13a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3zm2 2v-1h1v1H5zM13 4a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1V4zm2 2V5h1v1h-1z" clipRule="evenodd" />
                             </svg>
-                            QR ID: {userData?.qrid || "N/A"}
+                            {userData?.qrid || "N/A"}
                         </div>
                     </div>
                     
@@ -102,7 +102,7 @@ export default function UserProfile() {
                                     Personal Information
                                 </h3>
                                 
-                                <div className="space-y-4">
+                                <div className="md:h-56 flex flex-col justify-between space-y-4">                                  
                                     <div className="bg-gray-50 rounded-xl p-4">
                                         <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">Full Name</label>
                                         <p className="text-lg font-semibold text-gray-900 mt-1">
@@ -113,15 +113,7 @@ export default function UserProfile() {
                                     <div className="bg-gray-50 rounded-xl p-4">
                                         <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">Country</label>
                                         <p className="text-lg font-semibold text-gray-900 mt-1 flex items-center">
-                                            <span className="mr-2">🌍</span>
                                             {userData?.country || "Not provided"}
-                                        </p>
-                                    </div>
-                                    
-                                    <div className="bg-gray-50 rounded-xl p-4">
-                                        <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">User ID</label>
-                                        <p className="text-lg font-semibold text-gray-900 mt-1">
-                                            #{userData?.id || "N/A"}
                                         </p>
                                     </div>
                                 </div>
@@ -135,8 +127,8 @@ export default function UserProfile() {
                                     </svg>
                                     Academic & Package Details
                                 </h3>
-                                
-                                <div className="space-y-4">
+
+                                <div className="md:h-56 flex flex-col justify-between space-y-4">
                                     {/* University */}
                                     <div className="bg-gray-50 rounded-xl p-4">
                                         <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">University</label>

@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import PagesURL from "../../../router/routes";
+
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
@@ -11,21 +14,27 @@ export default function Landing() {
             {/* Main Content */}
             <main className="flex flex-col w-screen">
                 {/* Hero Section */}
-                <section className=" sm:px-6  sm:py-20 text-center min-h-[60vh] sm:min-h-[80vh] flex items-center">
+                <section className="min-h-[60vh] sm:min-h-[80vh] flex items-center text-center p-10">
                     <div className="max-w-4xl mx-auto w-full">
+                        {/* Title */}
                         <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
-                            Track Your Guests with
+                            Track Your Guests 
                             <span className="block text-blue-600">QR Code Magic</span>
                         </h1>
+
+                        {/* Description */}
                         <p className="text-base sm:text-xl text-gray-600 mb-6 sm:mb-10 max-w-3xl mx-auto leading-relaxed">
                             Streamline your event management with our intelligent QR code tracking system. 
                             Scan, track, and manage your guests effortlessly with our powerful platform.
                         </p>
                         
+                        {/* Navigation Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 sm:mb-16">
-                            <button className="bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-blue-700 transition-colors shadow-lg">
-                                Test QR Scanning
-                            </button>
+                            <Link to={PagesURL.FindUserQr} className="bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-blue-700 transition-colors shadow-lg">
+                                <button>
+                                    Test QR Scanning
+                                </button>
+                            </Link>
                             <button className="border-2 border-blue-600 text-blue-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-blue-50 transition-colors">
                                 Watch Demo
                             </button>
@@ -34,15 +43,21 @@ export default function Landing() {
                         {/* QR Scanner Card */}
                         <div className="flex justify-center">
                             <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-12 border border-gray-100 max-w-xs sm:max-w-md w-full">
-                                <div className="bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl p-4 sm:p-8 mb-4 sm:mb-6">
-                                    <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
-                                        <div className="w-16 h-16 sm:w-24 sm:h-24 mx-auto bg-gray-900 rounded-lg flex items-center justify-center">
-                                            <div className="w-10 h-10 sm:w-16 sm:h-16 border-4 border-gray-300 rounded"></div>
+                                <div className="bg-gradient-to-r from-purple-100 via-indigo-100 to-blue-100 rounded-2xl p-4 sm:p-8 mb-4 sm:mb-6">
+                                    <div className="h-[23vh] flex justify-center items-center bg-white rounded-xl p-4 sm:p-6 shadow-lg">
+                                        <div className="w-26 h-26 sm:w-24 sm:h-24 mx-auto bg-gray-900 rounded-lg flex items-center justify-center">
+                                            <div className="w-20 h-20 sm:w-16 sm:h-16 border-4 border-gray-300 rounded"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-1 sm:mb-2">Scan QR Code</h3>
-                                <p className="text-gray-500 text-xs sm:text-sm">Point your camera to scan guest codes instantly</p>
+                                <h3 className="text-xl sm:text-2xl font-extrabold text-indigo-700 mb-2 sm:mb-3 tracking-tight drop-shadow-sm">
+                                    <span className="inline-block bg-gradient-to-r from-purple-300 via-indigo-300 to-blue-300 bg-clip-text text-transparent">
+                                        Scan QR Code
+                                    </span>
+                                </h3>
+                                <p className="text-gray-700 text-base sm:text-lg leading-relaxed italic">
+                                    Effortlessly scan guest codes with a single tap fast, secure, and reliable.
+                                </p>
                             </div>
                         </div>
                     </div>

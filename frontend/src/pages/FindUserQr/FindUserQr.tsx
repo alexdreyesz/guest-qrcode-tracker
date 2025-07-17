@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import PagesURL from "../../../router/routes";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -18,8 +20,10 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 export default function FindUserQr() {
     const [userList, setUserList] = useState<UserProp[]>([]);
     const [userData, setUserData] = useState<UserProp | null>(null);
+    const navigate = useNavigate();
     
     async function getUserData(name: string) {
+        console.log("Fetching user data for:", name);
         try {
             const response = await fetch(`${baseUrl}/search?name=${name}`);
 
@@ -69,15 +73,17 @@ export default function FindUserQr() {
                             
                             if (selectedUser) {
                                 setUserData(selectedUser);
+                                navigate(PagesURL.UserProfile, { state: { qrid: selectedUser.qrid } });
                             }
                         }}
                     >
-                        <option value="">Select a user...</option>
+                        <option value="">"Select a user..."</option>
                         {userList.map((user) => {
                             return (
                                 <option 
                                     key={`${user.id}`}
                                     value={user.name}
+                                    className="w-20 text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
                                 >
                                     {user.name}
                                 </option>
@@ -86,7 +92,7 @@ export default function FindUserQr() {
                     </select>
                 </div>
                 
-                <div className="w-[80%] h-[60%] md:h-[70%] flex justify-center items-center bg-white rounded-2xl">
+                <div className="w-[80%] max-w-[1200px] h-[60%] md:h-[70%] flex justify-center items-center bg-white rounded-2xl">
                     <QrScanner /> 
                 </div>
             </div>

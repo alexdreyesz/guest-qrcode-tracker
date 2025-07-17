@@ -32,13 +32,14 @@ const getAllUsers = async (req, res) => {
         const users = await QRUser.find();
         res.json(users);
     } catch(err) {
-        res.status(500).json({error: 'Failed to fetch users'});
+        res.status(500).json({error: 'Failed to fetch users', err});
     }
 };
 
 const getUserByQRID = async (req, res) => {
     try {
         const { qrid } = req.params;
+        
         const user = await QRUser.findOne({ qrid });
 
         if(!user) {
@@ -46,8 +47,8 @@ const getUserByQRID = async (req, res) => {
         }
 
         res.json(user);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch user' });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch user', err });
     }
 };
 
@@ -72,9 +73,9 @@ const getUserByName = async (req, res) => {
         }
 
         res.json(users);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to fetch users' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to fetch users', err });
     }
 };
 
