@@ -22,3 +22,7 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
+
+button {
+  cursor: pointer;
+}

@@ -1,4 +1,5 @@
 export interface UserProp {
+    _id: string,
     id: number,
     name: string,
     country: string,

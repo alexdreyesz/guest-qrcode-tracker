@@ -2,11 +2,18 @@ const UserEvent = require('../models/UserEvents');
 
 const createUserEvent = async (req, res) => {
     try {
-        const { userID } = req.body;
+        const { userID, name } = req.body;
+
+        const existingEvent = await UserEvent.findOne({ userID });
+
+        if(existingEvent) {
+            return res.status(409).json({ message: "Event Already exist for this user" });
+        }
 
         const events = [
             {
                 userID,
+                name,
                 events: [
                     {
                         date: "2025-08-04",
@@ -60,4 +67,20 @@ const createUserEvent = async (req, res) => {
     }
 };
 
-module.exports = { createUserEvent };
+const getUserEvent = async(req, res) => {
+    try {
+        const { userID } = req.params;
+
+        const userEvent = await UserEvent.findOne({ userID });
+
+        if(!userEvent) {
+            return res.status(404).json({ error: 'Failed to fetch user'});
+        }
+        
+        res.status(200).json(userEvent);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch user', err});
+    }
+}
+
+module.exports = { createUserEvent, getUserEvent };

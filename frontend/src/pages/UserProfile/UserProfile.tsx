@@ -1,22 +1,34 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { getUserByQRID } from "../../api/user";
-import type { UserProp } from "../../interfaces";
+import { getUserByQRID } from "../../api";
+import { createUserEvents, getUserEvents } from "../../api";
+import type { UserProp, UserEventsProp } from "../../interfaces";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
 export default function UserProfile() {
     const [userData, setUserData] = useState<UserProp | null>(null);
+    const [userEvents, setUserEvents] = useState<UserEventsProp | null>(null);
     const location = useLocation();
     const { qrid } = location.state || {};
 
     useEffect(() => {
-        
+        getUserByQRID(qrid, setUserData);
+    }, [qrid]);
+
+    useEffect(() => {
+        if (userData?._id) {
+            createUserEvents(userData._id, userData.name);
+            getUserEvents(userData._id, setUserEvents);
+        }
     }, [userData]);
 
     useEffect(() => {
-        getUserByQRID(qrid, setUserData);
+        if (!userData) return;
+        getUserEvents(userData._id, setUserEvents);
+        console.log("User Events Updated:", userEvents);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     return (
@@ -113,6 +125,27 @@ export default function UserProfile() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div>
+                        {/* User Events Section */}
+                        {userEvents?.events.map((event, index) => (
+                            <div key={index} className="w-[80%] max-w-3xl mx-auto p-4 my-10 flex flex-col justify-center items-center rounded-lg shadow-md bg-gray-100">
+                                <p>{new Date(event.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</p>
+                                {event.event.map((e, idx) => {
+                                    const color = e.scanned ? "bg-green-500" : "bg-red-600";
+                                    return (
+                                        <button 
+                                            key={idx} 
+                                            className={`w-full h-[20vh] p-5 my-4 flex justify-center items-center ${color} rounded-lg`}
+                                            onClick={() => handleEventClick(e)}
+                                        >
+                                            <p className="text-lg font-semibold text-gray-800">{e.name}</p>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

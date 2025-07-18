@@ -72,7 +72,7 @@ const getUserByName = async (req, res) => {
             return res.status(404).json({ error: 'No users found' });
         }
 
-        res.json(users);
+        res.status(200).json(users);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to fetch users', err });

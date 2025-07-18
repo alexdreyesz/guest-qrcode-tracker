@@ -1,14 +1,11 @@
 export interface UserEventsProp {
-      userID: { type: string },
-    events: [
-        {
-            date: { type: string },
-            event: [
-                {
-                    name: { type: string }, 
-                    scanned: { type: boolean } 
-                }
-            ]
-        } 
-    ]
+    _id: string;
+    userID: string;
+    events: {
+        date: string;
+        event: {
+            name: string;
+            scanned: boolean;
+        } [];
+    } [];
 }
