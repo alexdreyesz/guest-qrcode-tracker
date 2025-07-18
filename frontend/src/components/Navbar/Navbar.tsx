@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import PagesURL from '../../../router/routes';
+import PagesURL from '../../router/routes';
 
 import Logo from '../../assets/icons/Logo.png';
 

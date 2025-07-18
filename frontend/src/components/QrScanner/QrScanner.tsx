@@ -1,7 +1,7 @@
 import "./QrScanner.css";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PagesURL from "../../../router/routes";
+import PagesURL from "../../router/routes";
 import { Html5QrcodeScanner } from "html5-qrcode";
 
 

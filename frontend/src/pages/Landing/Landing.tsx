@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import PagesURL from "../../../router/routes";
+import PagesURL from "../../router/routes";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";

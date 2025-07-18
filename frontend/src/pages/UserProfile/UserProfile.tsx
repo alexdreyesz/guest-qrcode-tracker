@@ -1,56 +1,22 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { getUserByQRID } from "../../api/user";
+import type { UserProp } from "../../interfaces";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-
-interface UserProp {
-    _id?: string,
-    id: number,
-    name: string,
-    country: string,
-    university: string,
-    package: string,
-    qrid: string  
-}
-
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default function UserProfile() {
     const [userData, setUserData] = useState<UserProp | null>(null);
     const location = useLocation();
     const { qrid } = location.state || {};
-    
-    async function getUserQRID() {
-        try {
-            const response = await fetch(`${baseUrl}/by-qrid/${qrid}`);
-
-            if (!response.ok) {
-                if (response.status === 401) {
-                    throw new Error("Unauthorized. Please log in.");
-                } else if (response.status === 404) {
-                    throw new Error("User not found.");
-                } else {
-                    throw new Error(`Unexpected error: ${response.status}`);
-                }
-            }
-
-            const json = await response.json();
-
-            setUserData(json);
-
-            console.log("User Data:", json);
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-        }
-    }
 
     useEffect(() => {
         
     }, [userData]);
 
     useEffect(() => {
-        getUserQRID();
+        getUserByQRID(qrid, setUserData);
     }, []);
     
     return (

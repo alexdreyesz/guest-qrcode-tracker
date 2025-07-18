@@ -1,51 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PagesURL from "../../../router/routes";
+import { getUserBySearchName } from "../../api/user";
+import type { UserProp } from "../../interfaces";
+import PagesURL from "../../router/routes";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import QrScanner from "../../components/QrScanner/QrScanner";
 
-interface UserProp {
-    id: number,
-    name: string,
-    country: string,
-    university: string,
-    package: string,
-    qrid: string  
-}
-
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
-
 export default function FindUserQr() {
     const [userList, setUserList] = useState<UserProp[]>([]);
     const [userData, setUserData] = useState<UserProp | null>(null);
     const navigate = useNavigate();
-    
-    async function getUserData(name: string) {
-        console.log("Fetching user data for:", name);
-        try {
-            const response = await fetch(`${baseUrl}/search?name=${name}`);
-
-            if (!response.ok) {
-                if (response.status === 401) {
-                    throw new Error("Unauthorized. Please log in.");
-                } else if (response.status === 404) {
-                    throw new Error("User not found.");
-                } else {
-                    throw new Error(`Unexpected error: ${response.status}`);
-                }
-            }
-
-            const json = await response.json();
-
-            setUserList(json);
-
-            console.log("User Data:", json);
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-        }
-    }
 
     useEffect(() => {
         console.log(userData)
@@ -63,7 +29,7 @@ export default function FindUserQr() {
                         type="text" 
                         placeholder="Search user..." 
                         className="w-[340px] border bg-white border-gray-300 rounded-lg p-2" 
-                        onChange={(e) => getUserData(e.target.value)}
+                        onChange={(e) => getUserBySearchName(e.target.value, setUserList)}
                     />
                     
                     <select 

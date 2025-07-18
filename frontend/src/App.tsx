@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Landing, UserProfile, FindUserQr} from './pages'
-import PagesUrl from '../router/routes'
+import PagesUrl from './router/routes'
 
 function App() {
   return (
