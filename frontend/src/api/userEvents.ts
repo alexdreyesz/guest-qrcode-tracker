@@ -48,3 +48,30 @@ export async function getUserEvents(
         console.log("Error fetching user events:", err);   
     }
 }
+
+export async function updateScannedCondition(
+    userID: string, 
+    subEventId: string
+) {
+  try {
+    const response = await fetch(`${baseUrl}/api/userevents/${userID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ subEventId }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Failed to toggle scanned');
+    }
+
+    console.log('Toggle successful:', result);
+    return result;
+  } catch (err) {
+    console.error('Toggle failed:', err);
+    throw err;
+  }
+}

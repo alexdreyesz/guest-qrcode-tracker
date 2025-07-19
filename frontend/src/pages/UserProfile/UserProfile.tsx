@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getUserByQRID } from "../../api";
-import { createUserEvents, getUserEvents } from "../../api";
+import { createUserEvents, getUserEvents, updateScannedCondition} from "../../api";
 import type { UserProp, UserEventsProp } from "../../interfaces";
 
 import Navbar from "../../components/Navbar/Navbar";
@@ -138,7 +138,30 @@ export default function UserProfile() {
                                         <button 
                                             key={idx} 
                                             className={`w-full h-[20vh] p-5 my-4 flex justify-center items-center ${color} rounded-lg`}
-                                            onClick={() => handleEventClick(e)}
+                                            onClick={async () => {
+                                                if (!userData?._id) return;
+
+                                                try {
+                                                    await updateScannedCondition(userData._id, e._id);
+
+                                                    // Update local scanned state
+                                                    setUserEvents((prev) => {
+                                                        if (!prev) return prev;
+
+                                                        const updated = { ...prev };
+                                                        updated.events = updated.events.map((group) => ({
+                                                            ...group,
+                                                            event: group.event.map((item) =>
+                                                                item._id === e._id ? { ...item, scanned: !item.scanned } : item
+                                                            ),
+                                                        }));
+
+                                                        return updated;
+                                                    });
+                                                } catch (err) {
+                                                    console.error("Failed to update scanned status:", err);
+                                                }
+                                            }}
                                         >
                                             <p className="text-lg font-semibold text-gray-800">{e.name}</p>
                                         </button>

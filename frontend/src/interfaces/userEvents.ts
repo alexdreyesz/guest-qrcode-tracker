@@ -6,6 +6,7 @@ export interface UserEventsProp {
         event: {
             name: string;
             scanned: boolean;
+            _id: string;
         } [];
     } [];
 }

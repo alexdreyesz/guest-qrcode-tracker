@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const UserEvent = require('../models/UserEvents');
 
 const createUserEvent = async (req, res) => {
@@ -83,4 +84,59 @@ const getUserEvent = async(req, res) => {
     }
 }
 
-module.exports = { createUserEvent, getUserEvent };
+const updateScannedCondition = async (req, res) => {
+  try {
+    const { userID } = req.params;
+    const { subEventId } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(subEventId)) {
+      return res.status(400).json({ error: "Invalid subEventId format" });
+    }
+
+    const userEvent = await UserEvent.findOne({ userID });
+
+    if (!userEvent) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    let updated = false;
+    let toggledEvent = null;
+
+    for (let i = 0; i < userEvent.events.length; i++) {
+      const group = userEvent.events[i];
+      const subEvent = group.event.id(subEventId);
+
+      if (subEvent) {
+        console.log("Before toggle:", subEvent.scanned);
+        subEvent.scanned = !subEvent.scanned;
+        console.log("After toggle:", subEvent.scanned);
+
+        userEvent.markModified(`events.${i}.event`);
+        updated = true;
+        toggledEvent = subEvent;
+        break;
+      }
+    }
+
+    if (!updated) {
+      return res.status(404).json({ error: "Sub-event not found by ID" });
+    }
+
+    try {
+      await userEvent.save();
+    } catch (e) {
+      return res.status(500).json({ error: "Save failed", details: e.message });
+    }
+
+    res.status(200).json({
+      message: "Scanned status toggled successfully",
+      updated: toggledEvent
+    });
+
+  } catch (err) {
+    console.error("Toggle error:", err);
+    res.status(500).json({ error: "Failed to update scanned status", err: err.message });
+  }
+};
+
+module.exports = { createUserEvent, getUserEvent, updateScannedCondition };
